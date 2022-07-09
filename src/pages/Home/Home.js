@@ -10,9 +10,9 @@ const Home = () => {
   return (
     <div className="home">
       <GoogleLogin user={user} setUser={setUser} />
+          <h1>My Calendar Application</h1>
       {user ? (
         <div>
-          <h1>My Calendar Application</h1>
           <ListEvents />
           <AddEvent />
         </div>
