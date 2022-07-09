@@ -1,0 +1,22 @@
+.user_card {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 10px 0 10px 0;
+}
+
+.user_card > h2 {
+    padding: 8px;
+}
+
+.user_card img {
+    border-radius: 100%;
+    border: solid 1px #f8e091;
+    width: 60px
+}
+
+.user_card h2 {
+    margin: 0;
+}
