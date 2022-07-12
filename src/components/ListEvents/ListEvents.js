@@ -28,6 +28,7 @@ const ListEvents = () => {
         .then(
           (response) => {
             let events = response.result.items;
+            console.log(events);
             setEvents(events);
           },
           function (err) {

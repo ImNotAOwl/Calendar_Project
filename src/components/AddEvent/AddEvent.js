@@ -1,42 +1,67 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { gapi } from "gapi-script";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import ScrollSelect from "../ScrollSelect/ScrollSelect";
 
 const AddEvent = () => {
   const [value, onChange] = useState(new Date());
-  let [ rangeDate, setRangeDate ] = useState();
+  const [title, setTitle] = useState();
+  let shiftDate;
+  const shiftSelect = useRef();
 
-  rangeDate = value;
-  console.log(rangeDate);
+  console.log(value.toISOString().split("T")[0]);
+  // console.log(shiftSelect.current.value);
 
   const addNewEvent = () => {
+    let title,
+      startDateTime,
+      endDateTime,
+      colorId = 0;
+
+    switch (shiftSelect.current.value) {
+      case "0":
+        title = "CHU Voiron Matin";
+        startDateTime = value.toISOString().split("T")[0];
+        endDateTime = `${value.toISOString().split("T")[0]}T13:30:00`;
+        console.log(startDateTime.toString());
+        break;
+
+      case "1":
+        title = "CHU Voiron Aprem";
+        colorId = 3;
+        startDateTime = value.getHours();
+        endDateTime = new Date(value).setHours(21);
+        console.log(startDateTime);
+        break;
+    }
+
     var newEvent = {
-      summary: "Hello World",
+      summary: title,
+      colorId: colorId,
       location: "",
       start: {
-        dateTime: "2022-08-28T09:00:00-07:00",
-        timeZone: "America/Los_Angeles",
+        dateTime: new Date(`${startDateTime}T09:00:00`),
+        timeZone: "Europe/Paris",
       },
       end: {
-        dateTime: "2022-08-28T17:00:00-07:00",
-        timeZone: "America/Los_Angeles",
+        dateTime: new Date(`${startDateTime}T17:00:00`),
+        timeZone: "Europe/Paris",
       },
       recurrence: [],
       attendees: [],
       reminders: {
-        useDefault: false,
-        overrides: [
-          { method: "email", minutes: 24 * 60 },
-          { method: "popup", minutes: 10 },
-        ],
+        useDefault: true,
       },
     };
+    console.log(newEvent);
 
     const initiate = () => {
       gapi.client
         .init({
           apiKey: process.env.REACT_APP_API_KEY,
+          clientId: process.env.REACT_APP_CLIENT_ID,
+          scope: process.env.REACT_APP_SCOPES,
         })
         .then(() => {
           return gapi.client.request({
@@ -47,6 +72,7 @@ const AddEvent = () => {
         })
         .then(
           (response) => {
+            console.log(response);
             return [true, response];
           },
           function (err) {
@@ -60,10 +86,12 @@ const AddEvent = () => {
 
   return (
     <div>
-      <Calendar
-        onChange={onChange}
-        value={value}
-        selectRange={true}
+      <Calendar onChange={onChange} value={value} />
+      <ScrollSelect
+        name="shift"
+        label="Selectionné un shift "
+        values={["SHift-Matin", "shift-soir"]}
+        ref={shiftSelect}
       />
       <button onClick={addNewEvent}>Envoyer</button>
     </div>
