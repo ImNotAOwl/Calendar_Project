@@ -6,7 +6,7 @@ import ScrollSelect from "../ScrollSelect/ScrollSelect";
 
 const AddEvent = () => {
   const [value, onChange] = useState(new Date());
-  const [title, setTitle] =useState();
+  const [title, setTitle] = useState();
   let shiftDate;
   const shiftSelect = useRef();
 
@@ -14,32 +14,39 @@ const AddEvent = () => {
   // console.log(shiftSelect.current.value);
 
   const addNewEvent = () => {
-    let title, startDateTime, endDateTime;
+    let title,
+      startDateTime,
+      endDateTime,
+      colorId = 0;
 
     switch (shiftSelect.current.value) {
       case "0":
         title = "CHU Voiron Matin";
-        startDateTime = `${value.toISOString().split("T")[0]}T06:00:00`;
+        startDateTime = value.toISOString().split("T")[0];
         endDateTime = `${value.toISOString().split("T")[0]}T13:30:00`;
+        console.log(startDateTime.toString());
         break;
 
       case "1":
         title = "CHU Voiron Aprem";
-        startDateTime = value;
-        endDateTime = value;
+        colorId = 3;
+        startDateTime = value.getHours();
+        endDateTime = new Date(value).setHours(21);
+        console.log(startDateTime);
         break;
     }
 
     var newEvent = {
       summary: title,
+      colorId: colorId,
       location: "",
       start: {
-        dateTime: value,
-        timeZone: "UTC",
+        dateTime: new Date(`${startDateTime}T09:00:00`),
+        timeZone: "Europe/Paris",
       },
       end: {
-        dateTime: value,
-        timeZone: "UTC",
+        dateTime: new Date(`${startDateTime}T17:00:00`),
+        timeZone: "Europe/Paris",
       },
       recurrence: [],
       attendees: [],
@@ -47,6 +54,7 @@ const AddEvent = () => {
         useDefault: true,
       },
     };
+    console.log(newEvent);
 
     const initiate = () => {
       gapi.client
@@ -64,6 +72,7 @@ const AddEvent = () => {
         })
         .then(
           (response) => {
+            console.log(response);
             return [true, response];
           },
           function (err) {
