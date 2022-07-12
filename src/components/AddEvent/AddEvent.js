@@ -6,46 +6,45 @@ import ScrollSelect from "../ScrollSelect/ScrollSelect";
 
 const AddEvent = () => {
   const [value, onChange] = useState(new Date());
-  let [rangeDate, setRangeDate] = useState();
+  const [title, setTitle] =useState();
+  let shiftDate;
   const shiftSelect = useRef();
 
-  rangeDate = value;
-  console.log(value.toLocaleString());
+  console.log(value.toISOString().split("T")[0]);
   // console.log(shiftSelect.current.value);
 
   const addNewEvent = () => {
-    let summary, startDateTime, endDateTime;
+    let title, startDateTime, endDateTime;
 
     switch (shiftSelect.current.value) {
-      case 1:
-        summary = "CHU Voiron Matin";
-        startDateTime = value.toLocaleString();
-        endDateTime = value.toLocaleString();
+      case "0":
+        title = "CHU Voiron Matin";
+        startDateTime = `${value.toISOString().split("T")[0]}T06:00:00`;
+        endDateTime = `${value.toISOString().split("T")[0]}T13:30:00`;
         break;
 
-      default:
+      case "1":
+        title = "CHU Voiron Aprem";
+        startDateTime = value;
+        endDateTime = value;
         break;
     }
 
     var newEvent = {
-      summary: "Hello World",
+      summary: title,
       location: "",
       start: {
-        dateTime: "2022-08-28T09:00:00-07:00",
-        timeZone: "Europe/France",
+        dateTime: value,
+        timeZone: "UTC",
       },
       end: {
-        dateTime: "2022-08-28T17:00:00-07:00",
-        timeZone: "Europe/France",
+        dateTime: value,
+        timeZone: "UTC",
       },
       recurrence: [],
       attendees: [],
       reminders: {
-        useDefault: false,
-        overrides: [
-          { method: "popup", minutes: 60 },
-          { method: "popup", minutes: 30 },
-        ],
+        useDefault: true,
       },
     };
 
@@ -53,6 +52,8 @@ const AddEvent = () => {
       gapi.client
         .init({
           apiKey: process.env.REACT_APP_API_KEY,
+          clientId: process.env.REACT_APP_CLIENT_ID,
+          scope: process.env.REACT_APP_SCOPES,
         })
         .then(() => {
           return gapi.client.request({
