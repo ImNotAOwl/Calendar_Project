@@ -13,8 +13,8 @@ const Home = () => {
           <h1>My Calendar Application</h1>
       {user ? (
         <div>
-          <ListEvents />
           <AddEvent />
+          <ListEvents />
         </div>
       ) : (
         <></>
