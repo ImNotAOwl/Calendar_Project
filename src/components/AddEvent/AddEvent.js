@@ -3,59 +3,21 @@ import { gapi } from "gapi-script";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import ScrollSelect from "../ScrollSelect/ScrollSelect";
+import newCalendarEvent from "../../functions/newEvent";
 
 const AddEvent = () => {
   const [value, onChange] = useState(new Date());
-  const [title, setTitle] = useState();
-  let shiftDate;
   const shiftSelect = useRef();
+  const [submitMessage, setSubmitMessage] = useState("");
 
   console.log(value.toISOString().split("T")[0]);
   // console.log(shiftSelect.current.value);
-
-  const addNewEvent = () => {
-    let title,
-      startDateTime,
-      endDateTime,
-      colorId = 0;
-
-    switch (shiftSelect.current.value) {
-      case "0":
-        title = "CHU Voiron Matin";
-        startDateTime = value.toISOString().split("T")[0];
-        endDateTime = `${value.toISOString().split("T")[0]}T13:30:00`;
-        console.log(startDateTime.toString());
-        break;
-
-      case "1":
-        title = "CHU Voiron Aprem";
-        colorId = 3;
-        startDateTime = value.getHours();
-        endDateTime = new Date(value).setHours(21);
-        console.log(startDateTime);
-        break;
-    }
-
-    var newEvent = {
-      summary: title,
-      colorId: colorId,
-      location: "",
-      start: {
-        dateTime: new Date(`${startDateTime}T09:00:00`),
-        timeZone: "Europe/Paris",
-      },
-      end: {
-        dateTime: new Date(`${startDateTime}T17:00:00`),
-        timeZone: "Europe/Paris",
-      },
-      recurrence: [],
-      attendees: [],
-      reminders: {
-        useDefault: true,
-      },
-    };
+  
+  const addNewEvent = (shiftSelectValue, dateEvent) => {
+    
+    const newEvent = newCalendarEvent(shiftSelectValue, dateEvent);
     console.log(newEvent);
-
+    
     const initiate = () => {
       gapi.client
         .init({
@@ -73,6 +35,12 @@ const AddEvent = () => {
         .then(
           (response) => {
             console.log(response);
+            if (response.status === 200) {
+              setSubmitMessage("L'évènement a bien été ajouté au calendrier");
+              setTimeout(() => {
+                setSubmitMessage("");
+              }, 2000);
+            }
             return [true, response];
           },
           function (err) {
@@ -93,7 +61,8 @@ const AddEvent = () => {
         values={["SHift-Matin", "shift-soir"]}
         ref={shiftSelect}
       />
-      <button onClick={addNewEvent}>Envoyer</button>
+      <input type="submit" onClick={() => addNewEvent(shiftSelect.current?.value, value)} value="Envoyer" />
+      <p>{submitMessage}</p>
     </div>
   );
 };
