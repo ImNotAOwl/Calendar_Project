@@ -7,6 +7,7 @@ import moment from "moment";
 
 import "./AddEvent.css";
 import "react-calendar/dist/Calendar.css";
+import gapi_initiate from "../../functions/gapi_initiate";
 
 const AddEvent = () => {
   const [value, onChange] = useState(new Date());
@@ -29,38 +30,7 @@ const AddEvent = () => {
       newEvent = newCalendarEvent(shiftSelectValue, currDate.toDate(), description);
       console.log(newEvent);
 
-      const initiate = (newEvent) => {
-        gapi.client
-          .init({
-            apiKey: process.env.REACT_APP_API_KEY,
-            clientId: process.env.REACT_APP_CLIENT_ID,
-            scope: process.env.REACT_APP_SCOPES,
-          })
-          .then(() => {
-            return gapi.client.request({
-              path: `https://www.googleapis.com/calendar/v3/calendars/${process.env.REACT_APP_CALENDAR_MATT}/events`,
-              method: "POST",
-              body: newEvent,
-            });
-          })
-          .then(
-            (response) => {
-              console.log(response);
-              if (response.status === 200) {
-                setSubmitMessage("L'évènement a bien été ajouté au calendrier");
-                setTimeout(() => {
-                  setSubmitMessage("");
-                }, 4000);
-              }
-              return [true, response];
-            },
-            function (err) {
-              console.log(err);
-              return [false, err];
-            }
-          );
-      };
-      gapi.load("client", initiate(newEvent));
+      gapi.load("client", gapi_initiate("POST", newEvent, null, setSubmitMessage));
 
       currDate.add(1, "days");
     } while (currDate.diff(lastDate) <= 0);

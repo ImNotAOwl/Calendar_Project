@@ -4,6 +4,7 @@ import ItemList from "../ItemList/ItemList";
 import refresh from "../../assets/logo/refresh.svg";
 
 import "./ListEvents.css";
+import gapi_initiate from "../../functions/gapi_initiate";
 
 const ListEvents = () => {
   const [events, setEvents] = useState();
@@ -12,37 +13,17 @@ const ListEvents = () => {
   const headers = ["Date", "Description", "Status"];
 
   const getEvents = () => {
+    let params = {
+      maxResults: 11,
+      timeMin: new Date().toISOString(),
+      showDeleted: false,
+      singleEvents: true,
+      orderBy: "startTime",
+    }
 
     setAnimRefresh("anim_refresh");
-    const initiate = () => {
-      gapi.client
-        .init({
-          apiKey: process.env.REACT_APP_API_KEY,
-        })
-        .then(() => {
-          return gapi.client.request({
-            path: `https://www.googleapis.com/calendar/v3/calendars/${process.env.REACT_APP_CALENDAR_MATT}/events`,
-            params: {
-              maxResults: 11,
-              timeMin: new Date().toISOString(),
-              showDeleted: false,
-              singleEvents: true,
-              orderBy: "startTime",
-            },
-          });
-        })
-        .then(
-          (response) => {
-            let events = response.result.items;
-            console.log(events);
-            setEvents(events);
-          },
-          function (err) {
-            return [false, err];
-          }
-        );
-    };
-    gapi.load("client", initiate);
+
+    gapi.load("client", gapi_initiate("GET", params, setEvents));
 
     setTimeout(() => {
       setAnimRefresh("");
@@ -60,10 +41,9 @@ const ListEvents = () => {
         <img
           src={refresh}
           alt="Circular arrow"
-          onClick={getEvents}
+          onClick={() => getEvents()}
           className={`refresh_arrow ${animRefresh}`}
         />
-        
       </div>
       {!events ? (
         <></>
