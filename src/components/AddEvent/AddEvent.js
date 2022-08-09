@@ -1,13 +1,12 @@
 import { useState, useRef } from "react";
-import { gapi } from "gapi-script";
 import Calendar from "react-calendar";
+import moment from "moment";
 import ScrollSelect from "../ScrollSelect/ScrollSelect";
 import newCalendarEvent from "../../functions/newEvent";
-import moment from "moment";
+import gapi_initiate from "../../functions/gapi_initiate";
 
 import "./AddEvent.css";
 import "react-calendar/dist/Calendar.css";
-import gapi_initiate from "../../functions/gapi_initiate";
 
 const AddEvent = () => {
   const [value, onChange] = useState(new Date());
@@ -29,8 +28,7 @@ const AddEvent = () => {
     do {
       newEvent = newCalendarEvent(shiftSelectValue, currDate.toDate(), description);
       console.log(newEvent);
-
-      gapi.load("client", gapi_initiate("POST", newEvent, null, setSubmitMessage));
+      gapi_initiate("POST", newEvent, null, setSubmitMessage)
 
       currDate.add(1, "days");
     } while (currDate.diff(lastDate) <= 0);

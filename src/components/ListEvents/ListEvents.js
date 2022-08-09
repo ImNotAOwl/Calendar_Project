@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { gapi } from "gapi-script";
 import ItemList from "../ItemList/ItemList";
 import refresh from "../../assets/logo/refresh.svg";
 
@@ -9,10 +8,10 @@ import gapi_initiate from "../../functions/gapi_initiate";
 const ListEvents = () => {
   const [events, setEvents] = useState();
   const [animRefresh, setAnimRefresh] = useState();
-  const keys = ["updated", "summary", "status"];
-  const headers = ["Date", "Description", "Status"];
+  const keys = ["date", "heure", "description", "deleteEvent"];
+  const headers = ["Date", "Horaire", "Description", "Supprimer"];
 
-  const getEvents = () => {
+  const getEvents = async () => {
     let params = {
       maxResults: 11,
       timeMin: new Date().toISOString(),
@@ -21,20 +20,21 @@ const ListEvents = () => {
       orderBy: "startTime",
     }
 
-    setAnimRefresh("anim_refresh");
+    gapi_initiate("GET", params, setEvents);
 
-    gapi.load("client", gapi_initiate("GET", params, setEvents));
+    setAnimRefresh("anim_refresh");
 
     setTimeout(() => {
       setAnimRefresh("");
     }, 2000);
   };
 
+  
   useEffect(() => {
     getEvents();
-    console.log(events);
+    console.log(events)
   }, []);
-
+  
   return (
     <div className="list_events" style={{ margin: "50px 0" }}>
       <div className="refresh_container">
@@ -44,6 +44,7 @@ const ListEvents = () => {
           onClick={() => getEvents()}
           className={`refresh_arrow ${animRefresh}`}
         />
+        
       </div>
       {!events ? (
         <></>

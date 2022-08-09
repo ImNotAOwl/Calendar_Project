@@ -52,7 +52,14 @@ const newCalendarEvent = (shiftSelectValue, dateEvent, description) => {
       timeZone: "Europe/Paris",
     },
     recurrence: [],
-    attendees: [],
+    attendees: [
+      {
+        email: "fabienne.henn@yahoo.fr",
+      },
+      {
+        email: "fabienne.henn@gmail.com"
+      }
+    ],
     reminders: {
       useDefault: true,
     },
