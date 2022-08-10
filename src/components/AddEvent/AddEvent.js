@@ -28,7 +28,7 @@ const AddEvent = () => {
     do {
       newEvent = newCalendarEvent(shiftSelectValue, currDate.toDate(), description);
       console.log(newEvent);
-      gapi_initiate("POST", newEvent, null, setSubmitMessage)
+      gapi_initiate("POST", newEvent, null, setSubmitMessage, "L'évènement a bien été ajouté au calendrier")
 
       currDate.add(1, "days");
     } while (currDate.diff(lastDate) <= 0);

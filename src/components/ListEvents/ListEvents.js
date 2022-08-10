@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import ItemList from "../ItemList/ItemList";
-import refresh from "../../assets/logo/refresh.svg";
-
-import "./ListEvents.css";
 import gapi_initiate from "../../functions/gapi_initiate";
+
+import refresh from "../../assets/logo/refresh.svg";
+import "./ListEvents.css";
 
 const ListEvents = () => {
   const [events, setEvents] = useState();
   const [animRefresh, setAnimRefresh] = useState();
   const keys = ["date", "heure", "description", "deleteEvent"];
-  const headers = ["Date", "Horaire", "Description", "Supprimer"];
+  const headers = ["Date", "Horaire", "Description", ""];
 
   const getEvents = async () => {
     let params = {
@@ -29,7 +29,7 @@ const ListEvents = () => {
     }, 2000);
   };
 
-  
+   
   useEffect(() => {
     getEvents();
     console.log(events)

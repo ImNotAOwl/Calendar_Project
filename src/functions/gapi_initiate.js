@@ -1,23 +1,36 @@
 import { gapi } from "gapi-script";
 import moment from "moment";
+import CustomButton from "../components/CustomButton/CustomButton";
 
-const gapi_initiate = (method, paramsEvent, setEvents, setSubmitMessage) => {
-  let params, body;
+const gapi_initiate = (method, paramsEvent, setEvents, setSubmitMessage, textMessage) => {
+  let params, body, eventID;
 
   switch (method) {
     case "GET":
       params = paramsEvent;
       body = null;
+      eventID = '';
       break;
 
     case "POST":
       params = null;
       body = paramsEvent;
+      eventID = '';
       break;
 
-    default:
+    case "DELETE":
+      params = null;
+      body = null;
+      eventID = `/${paramsEvent.eventId}`;
       break;
+
+    default: 
+      params = paramsEvent;
+      body = null;
+      break;
+      
   }
+
 
   const initiate = () => {
     gapi.client
@@ -28,7 +41,7 @@ const gapi_initiate = (method, paramsEvent, setEvents, setSubmitMessage) => {
       })
       .then(() => {
         return gapi.client.request({
-          path: `https://www.googleapis.com/calendar/v3/calendars/${process.env.REACT_APP_CALENDAR_MATT}/events`,
+          path: `https://www.googleapis.com/calendar/v3/calendars/${process.env.REACT_APP_CALENDAR_MATT}/events${eventID}`,
           method: method,
           params: params,
           body: body,
@@ -51,12 +64,11 @@ const gapi_initiate = (method, paramsEvent, setEvents, setSubmitMessage) => {
                 heure:
                   onEvent["start"].dateTime !== undefined
                     ? `${moment(onEvent["start"].dateTime).format("H[h]mm")}
-                      ${moment(onEvent["end"].dateTime).format("-H[h]mm")}`
+                      ${moment(onEvent["end"].dateTime).format("- H[h]mm")}`
                     : "Journée entière",
                 description: onEvent.summary,
-                eventId: onEvent.id,
                 colorId: onEvent.colorId,
-                deleteEvent: <button>Supp</button>
+                deleteEvent: <CustomButton eventId={onEvent.id} innerText={`Supprimer`} suffixClass={'red'} setSubmitMessage/>
               };
               result = [...result, newOneEvent];
               console.log(onEvent);
@@ -64,7 +76,7 @@ const gapi_initiate = (method, paramsEvent, setEvents, setSubmitMessage) => {
             console.log(result);
             setEvents(result);
           } else {
-            setSubmitMessage("L'évènement a bien été ajouté au calendrier");
+            setSubmitMessage(textMessage);
             setTimeout(() => {
               setSubmitMessage("");
             }, 4000);
