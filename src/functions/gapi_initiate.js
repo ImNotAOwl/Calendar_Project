@@ -2,7 +2,7 @@ import { gapi } from "gapi-script";
 import moment from "moment";
 import CustomButton from "../components/CustomButton/CustomButton";
 
-const gapi_initiate = (method, paramsEvent, setEvents, setSubmitMessage, textMessage) => {
+const gapi_initiate = (method, paramsEvent, setEvents) => {
   let params, body, eventID;
 
   switch (method) {
@@ -30,7 +30,6 @@ const gapi_initiate = (method, paramsEvent, setEvents, setSubmitMessage, textMes
       break;
       
   }
-
 
   const initiate = () => {
     gapi.client
@@ -68,19 +67,14 @@ const gapi_initiate = (method, paramsEvent, setEvents, setSubmitMessage, textMes
                     : "Journée entière",
                 description: onEvent.summary,
                 colorId: onEvent.colorId,
-                deleteEvent: <CustomButton eventId={onEvent.id} innerText={`Supprimer`} suffixClass={'red'} setSubmitMessage/>
+                deleteEvent: <CustomButton eventId={onEvent.id} innerText={`Supprimer`} suffixClass={'red'} />
               };
               result = [...result, newOneEvent];
               console.log(onEvent);
             });
             console.log(result);
             setEvents(result);
-          } else {
-            setSubmitMessage(textMessage);
-            setTimeout(() => {
-              setSubmitMessage("");
-            }, 4000);
-          }
+          } 
         },
         function (err) {
           return [false, err];
