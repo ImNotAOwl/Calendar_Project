@@ -51,26 +51,27 @@ const gapi_initiate = (method, paramsEvent, setEvents) => {
           if (method === "GET" && response.status === 200) {
             let events = response.result.items;
             let result = [];
-            events.forEach((onEvent) => {
+            events.forEach((oneEvent) => {
               let newOneEvent = {
-                date: onEvent["start"].dateTime
-                  ? `${moment(onEvent["start"].dateTime).format(
-                      "DD/MM/YYYY")}` !== `${moment(onEvent["end"].dateTime).format("DD/MM/YYYY")}`
-                    ? `${moment(onEvent["start"].dateTime).format(
-                        "DD/MM/YYYY")}${moment(onEvent["end"].dateTime).format(" - DD/MM/YYYY")}`
-                    : `${moment(onEvent["start"].dateTime).format("DD/MM/YYYY")}`
-                  : moment(onEvent["start"].date).format("DD/MM/YYYY"),
+                date: oneEvent["start"].dateTime
+                  ? `${moment(oneEvent["start"].dateTime).format(
+                      "DD/MM/YYYY")}` !== `${moment(oneEvent["end"].dateTime).format("DD/MM/YYYY")}`
+                    ? `${moment(oneEvent["start"].dateTime).format(
+                        "DD/MM/YYYY")}${moment(oneEvent["end"].dateTime).format(" - DD/MM/YYYY")}`
+                    : `${moment(oneEvent["start"].dateTime).format("DD/MM/YYYY")}`
+                  : moment(oneEvent["start"].date).format("DD/MM/YYYY"),
                 heure:
-                  onEvent["start"].dateTime !== undefined
-                    ? `${moment(onEvent["start"].dateTime).format("H[h]mm")}
-                      ${moment(onEvent["end"].dateTime).format("- H[h]mm")}`
+                  oneEvent["start"].dateTime !== undefined
+                    ? `${moment(oneEvent["start"].dateTime).format("H[h]mm")}
+                      ${moment(oneEvent["end"].dateTime).format("- H[h]mm")}`
                     : "Journée entière",
-                description: onEvent.summary,
-                colorId: onEvent.colorId,
-                deleteEvent: <CustomButton eventId={onEvent.id} innerText={`Supprimer`} suffixClass={'red'} />
+                description: oneEvent.summary,
+                colorId: oneEvent.colorId,
+                eventId: oneEvent.id,
+                deleteEvent: <CustomButton eventId={oneEvent.id} innerText={`Supprimer`} suffixClass={'red'} />
               };
               result = [...result, newOneEvent];
-              console.log(onEvent);
+              console.log(oneEvent);
             });
             console.log(result);
             setEvents(result);

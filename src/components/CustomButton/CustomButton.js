@@ -3,7 +3,7 @@ import gapi_initiate from "../../functions/gapi_initiate";
 import "./CustomButton.css";
 
 const CustomButton = ({eventId, suffixClass, innerText, handleClick}) => {
-    const { setSubmitMessage, getEvents } = useEvents();
+  const { setSubmitMessage, events } = useEvents();
   let color = '';
   if (suffixClass) color = suffixClass;
 
@@ -13,8 +13,17 @@ const CustomButton = ({eventId, suffixClass, innerText, handleClick}) => {
     }
     gapi_initiate("DELETE", params);
     setSubmitMessage("Evénement supprimé");
+
+    events.forEach((oneEvent, index) => {
+      for (const key in oneEvent) {
+        if (Object.hasOwnProperty.call(oneEvent, key)) {
+          const element = oneEvent[key];
+          if (element === eventId) events.splice(index,1)
+        }
+      }
+    });
+
     setTimeout(() => {
-        getEvents();
         setSubmitMessage("");
     }, 4000);
   }
