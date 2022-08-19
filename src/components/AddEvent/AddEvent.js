@@ -11,6 +11,7 @@ import "react-calendar/dist/Calendar.css";
 
 const AddEvent = () => {
   const [value, onChange] = useState(new Date());
+  const [selectValue, setSelectValue] = useState("0");
   const shiftSelect = useRef();
   const descriptionMessage = useRef();
   const { submitMessage, setSubmitMessage, getEvents } = useEvents();
@@ -64,10 +65,22 @@ const AddEvent = () => {
             "Voiron-nuit",
             "Périsco-été",
             "Ooolala 9h-17h",
-            "CESI 9h-17h"
+            "CESI 9h-17h",
           ]}
           ref={shiftSelect}
+          setSelectValue={setSelectValue}
         />
+
+        {selectValue === "0" ? (
+          <input
+            type="text"
+            name="description"
+            placeholder="Event title"
+            ref={descriptionMessage}
+            className="event description"
+          />
+        ) : null}
+
         <input
           type="text"
           name="description"

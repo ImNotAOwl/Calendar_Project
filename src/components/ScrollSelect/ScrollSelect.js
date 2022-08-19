@@ -7,10 +7,11 @@ handleSubmit as placeholder for further customizations
 import { forwardRef } from 'react';
 import './ScrollSelect.css'
 
-const ScrollSelect = forwardRef(({ name, label, values }, ref) => {
+const ScrollSelect = forwardRef(({ name, label, values, setSelectValue }, ref) => {
 
     const handleSelect = (e) => {
         console.log(e.target.value);
+        setSelectValue(e.target.value);
     }
 
     return (
