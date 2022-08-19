@@ -63,6 +63,8 @@ const AddEvent = () => {
             "Voiron-Aprem",
             "Voiron-nuit",
             "Périsco-été",
+            "Ooolala 9h-17h",
+            "CESI 9h-17h"
           ]}
           ref={shiftSelect}
         />

@@ -18,10 +18,10 @@ const ScrollSelect = forwardRef(({ name, label, values }, ref) => {
             <label htmlFor={name}>{`${label} `}</label>
 
             <select ref={ref} name={name} id={name} onChange={(e) => handleSelect(e)}>
-                <option value="">--</option>
+                <option value="0">--</option>
                 {
                     values.map((value, index) => (
-                        <option key={`${index}-${value}`} value={index}>{value}</option>
+                        <option key={`${index}-${value}`} value={index+1}>{value}</option>
                     ))
                 }
             </select>
