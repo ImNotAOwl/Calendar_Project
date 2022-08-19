@@ -65,7 +65,7 @@ const gapi_initiate = (method, paramsEvent, setEvents) => {
                     ? `${moment(oneEvent["start"].dateTime).format("H[h]mm")}
                       ${moment(oneEvent["end"].dateTime).format("- H[h]mm")}`
                     : "Journée entière",
-                description: oneEvent.summary,
+                titre: oneEvent.summary,
                 colorId: oneEvent.colorId,
                 eventId: oneEvent.id,
                 deleteEvent: <CustomButton eventId={oneEvent.id} innerText={`Supprimer`} suffixClass={'red'} />

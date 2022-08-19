@@ -1,41 +1,18 @@
-// import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useEvents } from "../../contexts/eventsContext";
 import ItemList from "../ItemList/ItemList";
-// import gapi_initiate from "../../functions/gapi_initiate";
-
 import refresh from "../../assets/logo/refresh.svg";
 import "./ListEvents.css";
-import { useEvents } from "../../contexts/eventsContext";
 
 const ListEvents = () => {
-  // const [events, setEvents] = useState();
-  // const [animRefresh, setAnimRefresh] = useState();
-  const keys = ["date", "heure", "description", "deleteEvent"];
-  const headers = ["Date", "Horaire", "Description", ""];
-
+  const keys = ["date", "heure", "titre", "deleteEvent"];
+  const headers = ["Date", "Horaire", "Titre Événement", ""];
   const { getEvents, animRefresh, events } = useEvents();
-  // const getEvents = async () => {
-  //   let params = {
-  //     maxResults: 11,
-  //     timeMin: new Date().toISOString(),
-  //     showDeleted: false,
-  //     singleEvents: true,
-  //     orderBy: "startTime",
-  //   }
-
-  //   gapi_initiate("GET", params, setEvents);
-
-  //   setAnimRefresh("anim_refresh");
-
-  //   setTimeout(() => {
-  //     setAnimRefresh("");
-  //   }, 2000);
-  // };
-
-   
-  // useEffect(() => {
-  //   getEvents();
-  //   console.log(events)
-  // }, []);
+    
+  useEffect(() => {
+    getEvents();
+    console.log(events)
+  }, []);
   
   return (
     <div className="list_events" style={{ margin: "50px 0" }}>

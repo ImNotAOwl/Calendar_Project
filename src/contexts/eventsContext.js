@@ -42,7 +42,6 @@ const EventsContextProvider = ({children}) => {
         animRefresh
     }
 
-
     return <EventsContext.Provider value={value}>
         {children}
     </EventsContext.Provider>
