@@ -8,6 +8,7 @@ import { useEvents } from "../../contexts/eventsContext";
 
 import "./AddEvent.css";
 import "react-calendar/dist/Calendar.css";
+import CustomButton from "../CustomButton/CustomButton";
 
 const AddEvent = () => {
   const [value, onChange] = useState(new Date());
@@ -71,6 +72,7 @@ const AddEvent = () => {
           setSelectValue={setSelectValue}
         />
 
+        {/* TODO: make a component with title, startTime, endTime, color */}
         {selectValue === "0" ? (
           <input
             type="text"
@@ -88,18 +90,11 @@ const AddEvent = () => {
           ref={descriptionMessage}
           className="event description"
         />
-        <input
-          type="submit"
-          onClick={() =>
-            addNewEvent(
+        <CustomButton suffixClass={"_yellow event submit"} innerText={"Envoyer"} handleClick={() => addNewEvent(
               shiftSelect.current?.value,
               value,
               descriptionMessage.current?.value
-            )
-          }
-          value="Envoyer"
-          className="event submit"
-        />
+            )}/>
         <p style={{ textDecoration: "underline", fontWeight: "bold" }}>
           {submitMessage}
         </p>

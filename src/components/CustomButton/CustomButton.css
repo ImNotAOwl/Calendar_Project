@@ -13,14 +13,20 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
-.button_basicred {
+.button_basic:hover {
+    color: var(--blue);
+    background-color: var(--gold_light);
+    box-shadow: rgba(50, 50, 93, 0.062) 0px 30px 60px -12px     inset, rgba(0, 0, 0, 0.11) 0px 18px 36px -18px inset;
+    transition: all 0.3s ease-out;
+  }
+
+.button_basic_red {
     font-weight: bold;
     outline: none;
     padding: 5px;
     width: 150px;
     max-height: 37px;
     font-size: 1.1em;
-    border: none;
     border-radius: 7px;
     background-color: rgb(212, 102, 102);
     border: 1px solid rgba(0, 0, 0, 0.267);
@@ -30,16 +36,32 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
 
-  .button_basicred:hover {
+.button_basic_red:hover {
     background-color: rgb(196, 0, 0);
     border: 1px solid rgba(0, 0, 0, 0.267);
     box-shadow: rgba(50, 50, 93, 0.062) 0px 30px 60px -12px     inset, rgba(0, 0, 0, 0.11) 0px 18px 36px -18px inset;
     transition: all 0.3s ease-out;
-  }
+ }
 
-.button_basic:hover {
-    color: var(--blue);
-    background-color: var(--gold_light);
-    box-shadow: rgba(50, 50, 93, 0.062) 0px 30px 60px -12px     inset, rgba(0, 0, 0, 0.11) 0px 18px 36px -18px inset;
-    transition: all 0.3s ease-out;
-  }
+ .button_basic_yellow {
+  font-weight: bold;
+  outline: none;
+  padding: 5px;
+  width: 150px;
+  max-height: 37px;
+  font-size: 1.1em;
+  border-radius: 7px;
+  background-color: #f8e091;
+  border: 1px solid rgba(0, 0, 0, 0.452);
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.button_basic_yellow:hover {
+  background-color: #fdc200;
+  border: 1px solid rgba(0, 0, 0, 0.568);
+  box-shadow: rgba(50, 50, 93, 0.062) 0px 30px 60px -12px     inset, rgba(0, 0, 0, 0.11) 0px 18px 36px -18px inset;
+  transition: all 0.3s ease-out;
+}

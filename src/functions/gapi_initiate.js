@@ -68,7 +68,7 @@ const gapi_initiate = (method, paramsEvent, setEvents) => {
                 titre: oneEvent.summary,
                 colorId: oneEvent.colorId,
                 eventId: oneEvent.id,
-                deleteEvent: <CustomButton eventId={oneEvent.id} innerText={`Supprimer`} suffixClass={'red'} />
+                deleteEvent: <CustomButton eventId={oneEvent.id} innerText={`Supprimer`} suffixClass={'_red'} />
               };
               result = [...result, newOneEvent];
               console.log(oneEvent);
