@@ -90,11 +90,17 @@ const AddEvent = () => {
           ref={descriptionMessage}
           className="event description"
         />
-        <CustomButton suffixClass={"_yellow event submit"} innerText={"Envoyer"} handleClick={() => addNewEvent(
+        <CustomButton
+          suffixClass={"_yellow event submit"}
+          innerText={"Envoyer"}
+          handleClick={() =>
+            addNewEvent(
               shiftSelect.current?.value,
               value,
               descriptionMessage.current?.value
-            )}/>
+            )
+          }
+        />
         <p style={{ textDecoration: "underline", fontWeight: "bold" }}>
           {submitMessage}
         </p>
