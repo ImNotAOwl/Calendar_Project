@@ -1,5 +1,20 @@
 import moment from "moment";
 
+// color GAPI: 
+// 0 -> bleu paon
+// 1 -> lavande (violet clair)
+// 2 -> vert
+// 3 -> violet
+// 4 -> rose clair
+// 5 -> jaune
+// 6 -> mandarine (orange)
+// 7 -> bleu paon
+// 8 -> anthracite (gris)
+// 9 -> myrtille (bleu foncé)
+// 10 -> vert basilic (vert foncé)
+// 11 -> rouge tomate
+
+
 const newCalendarEvent = (
   shiftSelectValue,
   dateEvent,
@@ -50,7 +65,7 @@ const newCalendarEvent = (
       break;
     case "6":
       title = "CESI 9h-17h";
-      colorId = 1;
+      colorId = 6;
       startDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T09:00:00`;
       endDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T17:00:00`;
       console.log(startDateTime);
