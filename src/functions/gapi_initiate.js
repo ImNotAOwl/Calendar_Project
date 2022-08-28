@@ -21,7 +21,7 @@ const gapi_initiate = (method, paramsEvent, setEvents) => {
     case "DELETE":
       params = null;
       body = null;
-      eventID = `/${paramsEvent.eventId}`;
+      eventID = `/${paramsEvent.eventId}?sendUpdates=none`;
       break;
 
     default: 

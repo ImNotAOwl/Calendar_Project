@@ -94,15 +94,13 @@ const newCalendarEvent = (
     recurrence: [],
     attendees: [
       {
-        email: "fabienne.henn@yahoo.fr",
-      },
-      {
         email: "fabienne.henn@gmail.com",
       },
     ],
     reminders: {
       useDefault: true,
     },
+    visibility: "private"
   };
 
   return jsonEvent;
