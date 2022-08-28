@@ -6,29 +6,65 @@ import newCalendarEvent from "../../functions/newCalendarEvent";
 import gapi_initiate from "../../functions/gapi_initiate";
 import CustomButton from "../CustomButton/CustomButton";
 
+import "./EventForm.css";
 
 const EventForm = (props) => {
   const descriptionMessage = useRef();
-  const [selectValue, setSelectValue] = useState("0");
   const shiftSelect = useRef();
+  const titleMessage = useRef();
+  const startTime = useRef();
+  const endTime = useRef();
+  const [selectValue, setSelectValue] = useState("0");
+  const [selectedColor, setSelectedColor] = useState();
   const { setSubmitMessage, getEvents } = useEvents();
+  const colors = [
+    { value: 0, color: "bleu", defaultColor: true },
+    { value: 2, color: "vert" },
+    { value: 6, color: "orange" },
+    { value: 9, color: "myrtille" },
+    { value: 10, color: "vert_fonce" },
+  ];
 
-  const addNewEvent = (shiftSelectValue, dateEvent, description) => {
+  const addNewEvent = (
+    shiftSelectValue,
+    dateEvent,
+    description,
+    newEventToAdd
+  ) => {
     let newEvent;
-    let currDate = moment(dateEvent[0]).startOf("day");
-    let lastDate = moment(dateEvent[1]).startOf("day");
 
-    do {
+    if (!newEventToAdd) {
+      let currDate = moment(dateEvent[0]).startOf("day");
+      let lastDate = moment(dateEvent[1]).startOf("day");
+      do {
+        newEvent = newCalendarEvent(
+          shiftSelectValue,
+          currDate.toDate(),
+          description
+        );
+        console.log(newEvent);
+        gapi_initiate("POST", newEvent, null);
+
+        currDate.add(1, "days");
+      } while (currDate.diff(lastDate) <= 0);
+
+    } else {
       newEvent = newCalendarEvent(
-        shiftSelectValue,
-        currDate.toDate(),
-        description
+        null,
+        props.dateValue,
+        descriptionMessage.current?.value,
+        titleMessage.current?.value,
+        startTime.current?.value,
+        endTime.current?.value,
+        selectedColor
       );
       console.log(newEvent);
-      gapi_initiate("POST", newEvent, null, setSubmitMessage);
 
-      currDate.add(1, "days");
-    } while (currDate.diff(lastDate) <= 0);
+      gapi_initiate("POST", newEvent, null);
+      titleMessage.current.value = "";
+      startTime.current.value = "";
+      endTime.current.value = "";
+    }
 
     setSubmitMessage("L'évènement a bien été ajouté au calendrier");
     setTimeout(() => {
@@ -37,6 +73,12 @@ const EventForm = (props) => {
     }, 4000);
 
     descriptionMessage.current.value = "";
+    // titleMessage.current.value = "";
+
+  };
+
+  const handleChange = (e) => {
+    setSelectedColor(e.target.value);
   };
 
   return props.name === "new" ? (
@@ -45,21 +87,49 @@ const EventForm = (props) => {
         type="text"
         name="title"
         placeholder="Event title"
-        // ref={descriptionMessage}
+        ref={titleMessage}
         className="event description"
       />
-      <label htmlFor="startTime">Start Time</label>
-      <input type="time" name="startTime" />
-      <label htmlFor="endTime">End Time</label>
-      <input type="time" name="endTime" />
+      <input
+        type="text"
+        name="description"
+        placeholder="Event description"
+        ref={descriptionMessage}
+        className="event description"
+      />
+      <div className="new_time">
+        <label htmlFor="startTime">Start Time</label>
+        <input
+          type="time"
+          name="startTime"
+          placeholder={"09:00"}
+          ref={startTime}
+        />
+        <label htmlFor="endTime">End Time</label>
+        <input type="time" name="endTime" placeholder={"17:00"} ref={endTime} />
+      </div>
+      <div className="color_event">
+        <p style={{ margin: "0 10px 0 0" }}>Choose your color : </p>
+        {colors.map((color) => (
+          <input
+            key={`${color.color}${color.value}`}
+            type="radio"
+            name="color"
+            id={color.color}
+            value={color.value}
+            onChange={handleChange}
+          />
+        ))}
+      </div>
       <CustomButton
         suffixClass={"_yellow event submit"}
         innerText={"Envoyer"}
         handleClick={() =>
           addNewEvent(
-            shiftSelect.current?.value,
+            null,
             props.dateValue,
-            descriptionMessage.current?.value
+            descriptionMessage.current?.value,
+            true
           )
         }
       />
@@ -95,7 +165,8 @@ const EventForm = (props) => {
           addNewEvent(
             shiftSelect.current?.value,
             props.dateValue,
-            descriptionMessage.current?.value
+            descriptionMessage.current?.value,
+            false
           )
         }
       />

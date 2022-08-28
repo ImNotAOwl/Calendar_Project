@@ -21,7 +21,8 @@ const newCalendarEvent = (
   description,
   title,
   startTime,
-  endTime
+  endTime,
+  colorNewEvent
 ) => {
   let startDateTime,
     endDateTime,
@@ -69,6 +70,11 @@ const newCalendarEvent = (
       startDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T09:00:00`;
       endDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T17:00:00`;
       console.log(startDateTime);
+      break;
+    default : 
+      colorId = colorNewEvent;
+      startDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T${startTime}:00`; 
+      endDateTime =  `${moment(dateEvent).format("yyyy-MM-DD")}T${endTime}:00`;
       break;
   }
 

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Calendar from "react-calendar";
 import moment from "moment";
 import { useEvents } from "../../contexts/eventsContext";
@@ -12,7 +12,7 @@ const AddEvent = () => {
   const [tabs, setTabs] = useState(0);
   const { submitMessage } = useEvents();
 
-  console.log(moment(value[0]).add(1, "days"));
+  console.log(moment(value).add(1, "days"));
   // console.log(shiftSelect.current.value);
 
   // moment(value[0]).startOf('day')

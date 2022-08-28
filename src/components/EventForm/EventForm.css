@@ -1,0 +1,114 @@
+/* Shift event CSS */
+
+.add_event .event {
+    margin: 12px 12px 5px 12px;
+    padding: 5px;
+}
+
+.add_event .event.description {
+    height: 24px;
+    font-size: 14px;
+    border: 1px solid rgb(173, 173, 173);
+    /* color: rgb(0, 0, 0); */
+    /* margin: 0.5em; */
+    vertical-align: middle;
+    /* outline: 0; */
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    font-family: sans-serif;
+}
+
+.add_event .event.submit {
+    align-self: center;
+    width: 220px;
+    height: 40px;
+    text-align: center;
+}
+
+.color_event {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+/* Event startTime & endTime */
+.new_time {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.new_time > label {
+    margin: 0 10px 0 10px;
+}
+
+.new_time > input[type="time"] {
+    border: 1px solid rgb(173, 173, 173);
+    color: rgb(0, 0, 0);
+    margin: 0.5em;
+    vertical-align: middle;
+    outline: 0;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    /* width: calc(100% - 3em - 2px); */
+    font-family: sans-serif;
+}
+
+/* customize radio button */
+.color_event input[type="radio"] {
+    appearance: none;
+    display: grid;
+    place-content: center;
+    font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  /* border: 1px solid rgb(173, 173, 173); */
+  border-radius: 50%;
+  transform: translateY(-0.075em);
+}
+
+.color_event input[type="radio"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+}
+
+.color_event #bleu {
+    border: 2px solid #039ae5b6;
+}
+.color_event #vert_fonce {
+    border: 2px solid #0b8043b6;
+}
+.color_event #vert {
+    border: 2px solid #33b679b6;
+}
+.color_event #orange {
+    border: 2px solid #f4511eb6;
+}
+.color_event #myrtille {
+    border: 2px solid #3f51b5b6;
+}
+
+.color_event #bleu::before {
+    box-shadow: inset 1em 1em #039be5;
+}
+.color_event #vert_fonce::before {
+    box-shadow: inset 1em 1em #0b8043;
+}
+.color_event #vert::before {
+    box-shadow: inset 1em 1em #33b679;
+}
+.color_event #orange::before {
+    box-shadow: inset 1em 1em #f4511e;
+}
+.color_event #myrtille::before {
+    box-shadow: inset 1em 1em #3f51b5;
+}
+
+input[type="radio"]:checked::before {
+    transform: scale(1);
+}
