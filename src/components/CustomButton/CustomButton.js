@@ -15,11 +15,8 @@ const CustomButton = ({eventId, suffixClass, innerText, handleClick}) => {
     setSubmitMessage("Evénement supprimé");
 
     events.forEach((oneEvent, index) => {
-      for (const key in oneEvent) {
-        if (Object.hasOwnProperty.call(oneEvent, key)) {
-          const element = oneEvent[key];
-          if (element === eventId) events.splice(index,1)
-        }
+      if (oneEvent.id === eventId) {
+        events.splice(index ,1)
       }
     });
 
