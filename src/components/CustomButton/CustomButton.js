@@ -35,6 +35,7 @@ const CustomButton = ({eventId, suffixClass, innerText, handleClick}) => {
         type={"button"}
         onClick={handleClick ? handleClick : () => deleteEvent(eventId)}
         value={innerText}
+        key={`button-${eventId}`}
       />
     </>
   );

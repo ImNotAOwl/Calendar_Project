@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import "./ItemList.css";
 
@@ -42,15 +43,15 @@ const ItemList = ({ name, data, keys, headers, ExtraContent, colorstyle }) => {
             {/* item rows */}
             {items &&
                 items.map((item, index) => (
-                    <>
+                    <React.Fragment key={`fragment-${index}`}>
                         <ul className={`item ${name}-item`} key={`item-${item.id}`} onClick={() => toggle(index)}>
                             {/* item columns */}
                             {keys.map((key, index) => (
-                                <li key={`${name}-key-${index}`}> {item[key]} </li>
+                                <li key={`${name}-key-${index}-${item['id']}`}> {item[key]} </li>
                             ))}
                         </ul>
                         <div className="extra-content" key={`extraC-${item.id}`} style={{ display: targetOpen === index ? "flex" : "none" }}>{setExtraContent(item)} </div>
-                    </>
+                    </React.Fragment>
                 ))}
         </div>
     );

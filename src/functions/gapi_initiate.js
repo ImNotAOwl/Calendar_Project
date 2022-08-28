@@ -53,6 +53,7 @@ const gapi_initiate = (method, paramsEvent, setEvents) => {
             let result = [];
             events.forEach((oneEvent) => {
               let newOneEvent = {
+                id: oneEvent.id,
                 date: oneEvent["start"].dateTime
                   ? `${moment(oneEvent["start"].dateTime).format(
                       "DD/MM/YYYY")}` !== `${moment(oneEvent["end"].dateTime).format("DD/MM/YYYY")}`
