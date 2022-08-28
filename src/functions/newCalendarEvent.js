@@ -94,7 +94,7 @@ const newCalendarEvent = (
     recurrence: [],
     attendees: [
       {
-        email: "fabienne.henn@gmail.com",
+        email: process.env.REACT_APP_ATTENDEES_MAIL,
       },
     ],
     reminders: {
