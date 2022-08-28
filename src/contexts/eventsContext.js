@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import moment from "moment";
 import gapi_initiate from "../functions/gapi_initiate";
 
 const EventsContext = createContext();
@@ -10,10 +11,11 @@ const EventsContextProvider = ({children}) => {
     const [events, setEvents] = useState();
     const [animRefresh, setAnimRefresh] = useState();
 
-    const getEvents = () => {
+    const getEvents = (selectedDate) => {
+        console.log(moment(selectedDate).format("yyyy-MM-DD"));
         let params = {
           maxResults: 11,
-          timeMin: new Date().toISOString(),
+          timeMin: selectedDate ? `${moment(selectedDate).format()}` : new Date().toISOString(),
           showDeleted: false,
           singleEvents: true,
           orderBy: "startTime",

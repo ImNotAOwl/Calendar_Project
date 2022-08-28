@@ -47,7 +47,6 @@ const EventForm = (props) => {
 
         currDate.add(1, "days");
       } while (currDate.diff(lastDate) <= 0);
-
     } else {
       newEvent = newCalendarEvent(
         null,
@@ -73,8 +72,6 @@ const EventForm = (props) => {
     }, 4000);
 
     descriptionMessage.current.value = "";
-    // titleMessage.current.value = "";
-
   };
 
   const handleChange = (e) => {
@@ -99,14 +96,9 @@ const EventForm = (props) => {
       />
       <div className="new_time">
         <label htmlFor="startTime">Start Time</label>
-        <input
-          type="time"
-          name="startTime"
-          placeholder={"09:00"}
-          ref={startTime}
-        />
+        <input type="time" name="startTime" ref={startTime} />
         <label htmlFor="endTime">End Time</label>
-        <input type="time" name="endTime" placeholder={"17:00"} ref={endTime} />
+        <input type="time" name="endTime" ref={endTime} />
       </div>
       <div className="color_event">
         <p style={{ margin: "0 10px 0 0" }}>Choose your color : </p>
