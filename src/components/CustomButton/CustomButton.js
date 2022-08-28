@@ -8,10 +8,7 @@ const CustomButton = ({eventId, suffixClass, innerText, handleClick}) => {
   if (suffixClass) color = suffixClass;
 
   const deleteEvent = (eventId) => {
-    const params = {
-        eventId: eventId,
-    }
-    gapi_initiate("DELETE", params);
+    gapi_initiate("DELETE", {eventId: eventId});
     setSubmitMessage("Evénement supprimé");
 
     events.forEach((oneEvent, index) => {
