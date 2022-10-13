@@ -38,7 +38,7 @@ const AddEvent = () => {
           {tabs === 0 ? (
             <EventForm dateValue={value}/>
           ) : (
-            <EventForm name="new" />
+            <EventForm dateValue={value} name="new" />
           )}
           <p style={{ textDecoration: "underline", fontWeight: "bold" }}>
             {submitMessage}
