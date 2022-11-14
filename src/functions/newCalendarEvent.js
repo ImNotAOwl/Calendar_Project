@@ -1,5 +1,5 @@
 import moment from "moment";
-import { attendeeMail } from "../config/config.env";
+import { attendeeMail } from "../config/configuration.env";
 
 // color GAPI: 
 // 0 -> bleu paon
