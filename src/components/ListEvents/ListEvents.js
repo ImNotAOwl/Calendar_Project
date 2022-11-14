@@ -8,14 +8,14 @@ import { useRef } from "react";
 const ListEvents = () => {
   const keys = ["date", "heure", "titre", "deleteEvent"];
   const headers = ["Date", "Horaire", "Titre Événement", ""];
-  const { getEvents, animRefresh, events } = useEvents();
+  const { getEventsAxios, animRefresh, events } = useEvents();
   const newStartDate = useRef();
-    
+
   useEffect(() => {
-    getEvents();
-    console.log(events)
+    getEventsAxios();
+    console.log(events);
   }, []);
-  
+
   return (
     <div className="list_events" style={{ margin: "50px 0" }}>
       <div className="refresh_container">
@@ -26,10 +26,12 @@ const ListEvents = () => {
         <img
           src={refresh}
           alt="Circular arrow"
-          onClick={() => {getEvents(newStartDate.current.value); newStartDate.current.value = '' }}
+          onClick={() => {
+            getEventsAxios(newStartDate.current.value);
+            newStartDate.current.value = "";
+          }}
           className={`refresh_arrow ${animRefresh}`}
         />
-        
       </div>
       {!events ? (
         <></>

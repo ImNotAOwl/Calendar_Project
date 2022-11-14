@@ -1,26 +1,30 @@
 import { useEvents } from "../../contexts/eventsContext";
-import gapi_initiate from "../../functions/gapi_initiate";
+import axios from "../../config/axios";
 import "./CustomButton.css";
 
-const CustomButton = ({eventId, suffixClass, innerText, handleClick}) => {
-  const { setSubmitMessage, events } = useEvents();
-  let color = '';
+const CustomButton = ({ eventId, suffixClass, innerText, handleClick }) => {
+  const { setSubmitMessage, events, token } = useEvents();
+  let color = "";
   if (suffixClass) color = suffixClass;
 
-  const deleteEvent = (eventId) => {
-    gapi_initiate("DELETE", {eventId: eventId});
-    setSubmitMessage("Evénement supprimé");
+  const deleteEvent = async (eventId) => {
+    const response = await axios.delete(`/${eventId}?sendUpdates=none`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response) setSubmitMessage("Evénement supprimé");
 
     events.forEach((oneEvent, index) => {
       if (oneEvent.id === eventId) {
-        events.splice(index ,1)
+        events.splice(index, 1);
       }
     });
 
     setTimeout(() => {
-        setSubmitMessage("");
+      setSubmitMessage("");
     }, 4000);
-  }
+  };
 
   return (
     <>

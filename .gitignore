@@ -2,6 +2,7 @@
 
 # API certificates
 certificates
+.env.js
 .env
 
 # dependencies

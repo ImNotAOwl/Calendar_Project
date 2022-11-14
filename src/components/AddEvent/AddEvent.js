@@ -12,7 +12,7 @@ const AddEvent = () => {
   const [tabs, setTabs] = useState(0);
   const { submitMessage } = useEvents();
 
-  console.log(moment(value).add(1, "days"));
+  // console.log(moment(value).add(1, "days"));
   // console.log(shiftSelect.current.value);
 
   // moment(value[0]).startOf('day')

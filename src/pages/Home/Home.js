@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddEvent from "../../components/AddEvent/AddEvent";
-import GoogleLogin from "../../components/GoogleLogin/GoogleLogin";
+import AuthCalendarApp from "../../components/AuthCalendarApp/AuthCalendarApp";
 import ListEvents from "../../components/ListEvents/ListEvents";
 import "./Home.css";
 
@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
     <div className="home">
-      <GoogleLogin user={user} setUser={setUser} />
+      <AuthCalendarApp user={user} setUser={setUser} />
           <h1>My Calendar Application</h1>
       {user ? (
         <div>

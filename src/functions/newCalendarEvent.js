@@ -1,4 +1,5 @@
 import moment from "moment";
+import { attendeeMail } from "../config/config.env";
 
 // color GAPI: 
 // 0 -> bleu paon
@@ -94,7 +95,7 @@ const newCalendarEvent = (
     recurrence: [],
     attendees: [
       {
-        email: process.env.REACT_APP_ATTENDEES_MAIL,
+        email: attendeeMail,
       },
     ],
     reminders: {
