@@ -3,7 +3,7 @@ import { GoogleLogin, GoogleLogout } from "react-google-login";
 import UserCard from "../UserCard/UserCard";
 import "./AuthCalendarApp.css";
 import { useEvents } from "../../contexts/eventsContext";
-import { clientId, calendarScopes } from "../../config/config.env";
+import { clientId, calendarScopes } from "../../config/configuration.env";
 
 const AuthCalendarApp = ({ user, setUser }) => {
   const {setToken} = useEvents();

@@ -2,10 +2,10 @@ import { useState } from "react";
 import Calendar from "react-calendar";
 import moment from "moment";
 import { useEvents } from "../../contexts/eventsContext";
+import EventForm from "../EventForm/EventForm";
 
 import "./AddEvent.css";
 import "react-calendar/dist/Calendar.css";
-import EventForm from "../EventForm/EventForm";
 
 const AddEvent = () => {
   const [value, onChange] = useState(new Date());
