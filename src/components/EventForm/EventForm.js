@@ -3,8 +3,8 @@ import { useEvents } from "../../contexts/eventsContext";
 import moment from "moment";
 import ScrollSelect from "../ScrollSelect/ScrollSelect";
 import newCalendarEvent from "../../functions/newCalendarEvent";
-import gapi_initiate from "../../functions/gapi_initiate";
 import CustomButton from "../CustomButton/CustomButton";
+import axios from "../../config/axios";
 
 import "./EventForm.css";
 
@@ -16,7 +16,7 @@ const EventForm = (props) => {
   const endTime = useRef();
   const [selectValue, setSelectValue] = useState("0");
   const [selectedColor, setSelectedColor] = useState();
-  const { setSubmitMessage, getEvents } = useEvents();
+  const { setSubmitMessage, getEventsAxios, token } = useEvents();
   const colors = [
     { value: 0, color: "bleu", defaultColor: true },
     { value: 2, color: "vert" },
@@ -25,7 +25,7 @@ const EventForm = (props) => {
     { value: 10, color: "vert_fonce" },
   ];
 
-  const addNewEvent = (
+  const addNewEvent = async (
     shiftSelectValue,
     dateEvent,
     description,
@@ -43,7 +43,11 @@ const EventForm = (props) => {
           description
         );
         console.log(newEvent);
-        gapi_initiate("POST", newEvent, null);
+        await axios.post("", newEvent, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         currDate.add(1, "days");
       } while (currDate.diff(lastDate) <= 0);
@@ -59,7 +63,11 @@ const EventForm = (props) => {
       );
       console.log(newEvent);
 
-      gapi_initiate("POST", newEvent, null);
+      await axios.post("", newEvent, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       titleMessage.current.value = "";
       startTime.current.value = "";
       endTime.current.value = "";
@@ -68,7 +76,7 @@ const EventForm = (props) => {
     setSubmitMessage("L'évènement a bien été ajouté au calendrier");
     setTimeout(() => {
       setSubmitMessage("");
-      getEvents();
+      getEventsAxios();
     }, 4000);
 
     descriptionMessage.current.value = "";
