@@ -20,7 +20,7 @@ const EventsContextProvider = ({ children }) => {
       setAnimRefresh("");
     }, 2000);
 
-    console.log(moment(selectedDate).format("yyyy-MM-DD"));
+    // console.log(moment(selectedDate).format("yyyy-MM-DD"));
     let options = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ const EventsContextProvider = ({ children }) => {
 
     const response = await axios.get(``, options);
     if (response) {
-      console.log(response);
+      // console.log(response);
       let events = response.data.items;
       let result = [];
       events.forEach((oneEvent) => {
@@ -79,7 +79,7 @@ const EventsContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) getEventsAxios();
-    console.log(events);
+    // console.log(events);
   }, [token]);
 
   const value = {

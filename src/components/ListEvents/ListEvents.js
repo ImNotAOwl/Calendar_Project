@@ -13,7 +13,7 @@ const ListEvents = () => {
 
   useEffect(() => {
     getEventsAxios();
-    console.log(events);
+    // console.log(events);
   }, []);
 
   return (
