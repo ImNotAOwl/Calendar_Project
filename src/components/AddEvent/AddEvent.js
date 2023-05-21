@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Calendar from "react-calendar";
-import moment from "moment";
 import { useEvents } from "../../contexts/eventsContext";
 import EventForm from "../EventForm/EventForm";
 
@@ -11,11 +10,6 @@ const AddEvent = () => {
   const [value, onChange] = useState(new Date());
   const [tabs, setTabs] = useState(0);
   const { submitMessage } = useEvents();
-
-  // console.log(moment(value).add(1, "days"));
-  // console.log(shiftSelect.current.value);
-
-  // moment(value[0]).startOf('day')
 
   return (
     <div className="add_event">

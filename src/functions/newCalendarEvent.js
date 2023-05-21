@@ -31,41 +31,27 @@ const newCalendarEvent = (
 
   switch (shiftSelectValue) {
     case "1":
-      title = "CHU Matin 6h30-14h";
-      colorId = 4;
+      title = "Cabinet 6h30-17h30";
+      colorId = 10;
       startDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T06:30:00`;
-      endDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T14:00:00`;
+      endDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T17:30:00`;
       console.log(startDateTime);
       break;
     case "2":
-      title = "CHU Aprem 13h30-21h";
-      colorId = 4;
-      startDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T13:30:00`;
-      endDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T21:00:00`;
-      console.log(startDateTime);
-      break;
-    case "3":
-      title = "CHU Nuit 20h45-7h";
-      colorId = 4;
-      startDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T20:45:00`;
-      endDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T23:59:00`;
-      console.log(startDateTime);
-      break;
-    case "4":
-      title = "Perisco ETE 8h-18h";
+      title = "Perisco Tullins 8h-18h";
       colorId = 3;
       startDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T08:00:00`;
       endDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T18:00:00`;
       console.log(startDateTime);
       break;
-    case "5":
+    case "3":
       title = "Ooolala 9h-17h";
       colorId = 0;
       startDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T09:00:00`;
       endDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T17:00:00`;
       console.log(startDateTime);
       break;
-    case "6":
+    case "4":
       title = "CESI 9h-17h";
       colorId = 6;
       startDateTime = `${moment(dateEvent).format("yyyy-MM-DD")}T09:00:00`;

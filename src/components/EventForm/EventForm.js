@@ -14,7 +14,7 @@ const EventForm = (props) => {
   const titleMessage = useRef();
   const startTime = useRef();
   const endTime = useRef();
-  const [selectValue, setSelectValue] = useState("0");
+  const [ _ , setSelectValue] = useState("0");
   const [selectedColor, setSelectedColor] = useState();
   const { setSubmitMessage, getEventsAxios, token } = useEvents();
   const colors = [
@@ -140,10 +140,8 @@ const EventForm = (props) => {
         name="shift"
         label="Selectionnez un shift "
         values={[
-          "Voiron-Matin",
-          "Voiron-Aprem",
-          "Voiron-nuit",
-          "Périsco-été",
+          "Cabinet",
+          "Périsco Tullins",
           "Ooolala 9h-17h",
           "CESI 9h-17h",
         ]}

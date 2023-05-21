@@ -15,7 +15,6 @@ const AuthCalendarApp = ({ user, setUser }) => {
       client_id: clientId,
       scope: calendarScopes,
       callback: (response) => {
-        // console.log(response);
         setToken(response.access_token);
       },
     });
